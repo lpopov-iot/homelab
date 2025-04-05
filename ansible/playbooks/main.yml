@@ -1,0 +1,5 @@
+- name: Homelab server prep
+  hosts: servers
+  become: true
+  roles:
+    - prereq

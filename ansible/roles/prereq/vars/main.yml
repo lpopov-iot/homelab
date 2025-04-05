@@ -1,0 +1,12 @@
+---
+system_packages:
+  - cockpit
+  - net-tools
+
+utility_packages:
+  - unzip
+  - tree
+  - jq
+
+dev_packages:
+  - git

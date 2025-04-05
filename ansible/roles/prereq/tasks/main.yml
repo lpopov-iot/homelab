@@ -1,0 +1,34 @@
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Install system packages
+  apt:
+    name: "{{ system_packages }}"
+    state: present
+
+- name: Install utility packages
+  apt:
+    name: "{{ utility_packages }}"
+    state: present
+
+- name: Install development packages
+  apt:
+    name: "{{ dev_packages }}"
+    state: present
+
+- name: Disable suspend on lid close
+  copy:
+    dest: /etc/systemd/logind.conf
+    content: |
+      [Login]
+      HandleLidSwitch=ignore
+      HandleLidSwitchExternalPower=ignore
+      HandleLidSwitchDocked=ignore
+      LidSwitchIgnoreInhibited=no
+
+- name: Restart systemd-logind service
+  systemd:
+    name: systemd-logind
+    state: restarted
