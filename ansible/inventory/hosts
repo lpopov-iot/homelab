@@ -1,7 +1,0 @@
-[servers]
-homelab ansible_host=192.168.0.34
-
-[all:vars]
-ansible_user=lyud-popov
-ansible_connection=ssh
-ansible_ssh_private_key_file=~/.ssh/id_rsa
