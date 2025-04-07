@@ -26,3 +26,16 @@ spec:
   timeout: 3m0s
   wait: true
   targetNamespace: default
+  patches:
+    - patch: |
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: podinfo
+          namespace: default
+        spec:
+          replicas: 1
+      target:
+        kind: Deployment
+        name: podinfo
+        namespace: default
