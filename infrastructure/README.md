@@ -49,19 +49,9 @@ flux create kustomization app-of-apps \
   --source=flux-system \
   --path="./apps/homelab" \
   --prune=true \
-  --wait=true \
+  --wait=true \W
   --interval=10m \
   --retry-interval=2m \
   --health-check-timeout=2m \
   --export > ./clusters/homelab/app-of-apps.yaml
- ```
-
-
- ## Apps
-```
- flux create source git podinfo \
-  --url=https://github.com/stefanprodan/podinfo \
-  --branch=master \
-  --interval=10m \
-  --export > ./clusters/homelab/git-repos.yaml
  ```
