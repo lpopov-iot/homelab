@@ -36,7 +36,15 @@ k3sup install --ip $IP \
  --repository homelab \
  --branch master \
  --owner lpopov-iot \
- --path cluster \
+ --path clusters \
  --personal \
  --token-auth
+ ```
+
+ ```
+ flux create source git podinfo \
+  --url=https://github.com/stefanprodan/podinfo \
+  --branch=master \
+  --interval=10m \
+  --export > ./clusters/my-cluster/podinfo-source.yaml
  ```
