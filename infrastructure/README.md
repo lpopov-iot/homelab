@@ -41,23 +41,27 @@ k3sup install --ip $IP \
  --token-auth
  ```
 
+
+## App of Apps
+
  ```
+flux create kustomization app-of-apps \
+  --source=flux-system \
+  --path="./apps/homelab" \
+  --prune=true \
+  --wait=true \
+  --interval=10m \
+  --retry-interval=2m \
+  --health-check-timeout=2m \
+  --export > ./clusters/homelab/app-of-apps.yaml
+ ```
+
+
+ ## Apps
+```
  flux create source git podinfo \
   --url=https://github.com/stefanprodan/podinfo \
   --branch=master \
   --interval=10m \
   --export > ./clusters/homelab/git-repos.yaml
- ```
-
- ```
- flux create kustomization podinfo \
-  --target-namespace=default \
-  --source=podinfo \
-  --path="./kustomize" \
-  --prune=true \
-  --wait=true \
-  --interval=30m \
-  --retry-interval=2m \
-  --health-check-timeout=3m \
-  --export > ./apps/homelab/pod-info/kustomization.yaml
  ```
