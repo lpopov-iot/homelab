@@ -25,3 +25,4 @@ spec:
     name: podinfo
   timeout: 3m0s
   wait: true
+  targetNamespace: default
