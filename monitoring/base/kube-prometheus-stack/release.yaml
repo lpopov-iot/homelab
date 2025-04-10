@@ -8,9 +8,9 @@ spec:
   chart:
     spec:
       chart: kube-prometheus-stack
+      version: 70.4.2
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
-    version: 70.4.2
   interval: 10m0s
