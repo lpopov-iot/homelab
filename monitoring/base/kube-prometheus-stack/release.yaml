@@ -16,5 +16,5 @@ spec:
   values:
     fullnameOverride:  prometheus
     grafana:
-      fullNameOverride: grafana
+      fullnameOverride: grafana
   interval: 10m0s
