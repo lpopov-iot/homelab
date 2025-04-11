@@ -17,4 +17,7 @@ spec:
     fullnameOverride:  prometheus
     grafana:
       fullnameOverride: grafana
+    prometheus-node-exporter:
+      fullnameOverride: node-exporter
+
   interval: 10m0s
