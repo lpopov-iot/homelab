@@ -1241,7 +1241,7 @@ grafana:
   defaultDashboardsInterval: 1m
 
   adminUser: admin
-  adminPassword: admin
+  adminPassword: prom-operator
 
   rbac:
     ## If true, Grafana PSPs will be created

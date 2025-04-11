@@ -20,6 +20,7 @@ spec:
       service:
         type: NodePort
         nodePort: 30001
+      adminPassword: admin
     prometheus-node-exporter:
       fullnameOverride: node-exporter
     kube-state-metrics:
