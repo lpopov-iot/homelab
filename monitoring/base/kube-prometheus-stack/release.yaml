@@ -17,7 +17,13 @@ spec:
     fullnameOverride:  prometheus
     grafana:
       fullnameOverride: grafana
+      service:
+        type: NodePort
+        nodePort: 30001
     prometheus-node-exporter:
       fullnameOverride: node-exporter
+    kube-state-metrics:
+      fullnameOverride: kube-state-metrics
+
 
   interval: 10m0s
