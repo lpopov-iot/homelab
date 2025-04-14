@@ -14,7 +14,9 @@ spec:
         kind: HelmRepository
         name: prometheus-community
   values:
-    fullnameOverride:  prometheus
+    fullnameOverride: prometheus
+    prometheus:
+      fullnameOverride: prometheus
     grafana:
       fullnameOverride: grafana
       service:
