@@ -19,7 +19,6 @@ spec:
       fullnameOverride: prometheus
     grafana:
       fullnameOverride: grafana
-      defaultDashboardsEnabled: false
       service:
         type: NodePort
         nodePort: 30001
