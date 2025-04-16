@@ -28,5 +28,5 @@ spec:
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
     defaultRules:
-      create: true
+      create: false
   interval: 10m0s
