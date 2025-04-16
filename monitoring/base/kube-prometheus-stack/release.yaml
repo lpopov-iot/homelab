@@ -27,6 +27,8 @@ spec:
       fullnameOverride: node-exporter
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
+    alertmanager:
+      enabled: false
     defaultRules:
       create: false
   interval: 10m0s
