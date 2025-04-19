@@ -25,6 +25,11 @@ spec:
       adminPassword: admin
       datasources:
         defaultDatasourceEnabled: false
+      sidecar:
+        datasources:
+          enabled: true
+          label: grafana_datasource
+          labelValue: "1"
     prometheus-node-exporter:
       fullnameOverride: node-exporter
     kube-state-metrics:
