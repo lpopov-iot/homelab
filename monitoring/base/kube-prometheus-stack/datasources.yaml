@@ -15,7 +15,7 @@ data:
       uid: prometheus
       url: http://kube-prometheus-stack-prometheus.monitoring:9090/
       # access: proxy
-      isDefault: true
+      isDefault: false
       jsonData:
         httpMethod: POST
         timeInterval: 30s
