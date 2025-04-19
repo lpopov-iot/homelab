@@ -24,7 +24,7 @@ spec:
         nodePort: 30001
       adminPassword: admin
       datasources:
-        defaultDatasourceEnabled: false
+        defaultDatasourceEnabled: true
         isDefaultDatasource: false
     prometheus-node-exporter:
       fullnameOverride: node-exporter
