@@ -29,9 +29,9 @@ spec:
 
     grafana:
       enabled: false
-      sidecar:                                                                                                                           │
-        datasources:                                                                                                                     │
-          enabled: false
+      sidecar:                                                                                                                           
+        datasources:                                                                                                                     
+          enabled: true
       
     prometheus:
       enabled: false
