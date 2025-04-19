@@ -15,7 +15,7 @@ data:
       uid: prometheus
       url: http://prometheus-prometheus.monitoring:9090/
       # access: proxy
-      isDefault: false
+      isDefault: true
       jsonData:
         httpMethod: POST
         timeInterval: 30s
