@@ -23,13 +23,10 @@ spec:
         type: NodePort
         nodePort: 30001
       adminPassword: admin
-      datasources:
-        defaultDatasourceEnabled: false
-      sidecar:
-        datasources:
-          enabled: true
-          label: grafana_datasource
-          labelValue: "1"
+      # datasources:
+      #   #deleteDatasources:
+      #   additionalDataSources:
+
     prometheus-node-exporter:
       fullnameOverride: node-exporter
     kube-state-metrics:
