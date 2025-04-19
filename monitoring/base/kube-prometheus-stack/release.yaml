@@ -23,9 +23,9 @@ spec:
         type: NodePort
         nodePort: 30001
       adminPassword: admin
-      deleteDatasources:
-        - name: Alertmanager
-          orgId: 1
+      datasources:
+        alertmanager:
+          enabled: false
 
     prometheus-node-exporter:
       fullnameOverride: node-exporter
