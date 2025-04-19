@@ -25,6 +25,7 @@ spec:
       adminPassword: admin
       datasources:
         defaultDatasourceEnabled: false
+        isDefaultDatasource: false
     prometheus-node-exporter:
       fullnameOverride: node-exporter
     kube-state-metrics:
