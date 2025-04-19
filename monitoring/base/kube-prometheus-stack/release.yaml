@@ -25,7 +25,6 @@ spec:
       adminPassword: admin
       sidecar:
         datasources:
-          defaultDatasourceEnabled: false
           alertmanager:
             enabled: false
       additionalDataSources:
