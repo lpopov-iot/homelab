@@ -27,11 +27,6 @@ spec:
         datasources:
           alertmanager:
             enabled: false
-      additionalDataSources:
-        - name: Loki
-          type: loki
-          uid: loki
-          url: http://loki-stack.monitoring:3100/
 
     prometheus-node-exporter:
       fullnameOverride: node-exporter
