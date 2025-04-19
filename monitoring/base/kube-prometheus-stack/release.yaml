@@ -24,7 +24,7 @@ spec:
         nodePort: 30001
       adminPassword: admin
       datasources:
-        defaultDatasourceEnabled: true
+        defaultDatasourceEnabled: false
     prometheus-node-exporter:
       fullnameOverride: node-exporter
     kube-state-metrics:
