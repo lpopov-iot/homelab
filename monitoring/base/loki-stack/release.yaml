@@ -31,7 +31,7 @@ spec:
       enabled: false
       sidecar:                                                                                                                           
         datasources:                                                                                                                     
-          enabled: true
+          enabled: false
       
     prometheus:
       enabled: false
