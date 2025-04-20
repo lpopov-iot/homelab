@@ -13,37 +13,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
-  values:
-    fullnameOverride: prometheus
-    prometheus:
-      fullnameOverride: prometheus
-      prometheusSpec:
-        storageSpec:
-          volumeClaimTemplate:
-            spec:
-              storageClassName: local-path
-              accessModes: ["ReadWriteOnce"]
-              resources:
-                requests:
-                  storage: 50Gi
-        retention: 15d
-    grafana:
-      fullnameOverride: grafana
-      service:
-        type: NodePort
-        nodePort: 30001
-      adminPassword: admin
-      sidecar:
-        datasources:
-          alertmanager:
-            enabled: false
-
-    prometheus-node-exporter:
-      fullnameOverride: node-exporter
-    kube-state-metrics:
-      fullnameOverride: kube-state-metrics
-    alertmanager:
-      enabled: false
-    defaultRules:
-      create: true
-  interval: 10m0s
+  valuesFrom:
+    - kind: ConfigMap
+      name: kube-prometheus-stack-values
+      optional: false
