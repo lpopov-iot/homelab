@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: log-generator
+  namespace: default
+  labels:
+    app: log-generator
+spec:
+  containers:
+  - name: log-generator
+    image: busybox:1.35
+    command: ["/bin/sh", "-c"]
+    args:
+    - >
+      while true; do
+        # Generate a random log level
+        LEVEL=$(( $RANDOM % 4 ));
+        case $LEVEL in
+          0) LEVEL_STR="DEBUG" ;;
+          1) LEVEL_STR="INFO" ;;
+          2) LEVEL_STR="WARN" ;;
+          3) LEVEL_STR="ERROR" ;;
+        esac;
+        
+        # Generate random message
+        MSG_ID=$(( $RANDOM % 100 ));
+        case $MSG_ID in
+          0) echo "$LEVEL_STR: User login attempt failed" ;;
+          1) echo "$LEVEL_STR: Database connection timeout" ;;
+          2) echo "$LEVEL_STR: API request completed in $(( $RANDOM % 1000 ))ms" ;;
+          3) echo "$LEVEL_STR: Cache miss for key-$(( $RANDOM % 1000 ))" ;;
+          4) echo "$LEVEL_STR: Resource utilization at $(( $RANDOM % 100 ))%" ;;
+          5) echo "$LEVEL_STR: Request rate: $(( $RANDOM % 500 )) req/s" ;;
+          *) echo "$LEVEL_STR: Log message $(date) - random data: $(head -c 20 /dev/urandom | base64)" ;;
+        esac;
+        
+        # Sleep for a random short time between 0.1 and 0.5 seconds
+        SLEEP_TIME=$(( ($RANDOM % 5 + 1) * 100 ));
+        sleep 0.$SLEEP_TIME;
+      done
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 50m
+        memory: 64Mi
