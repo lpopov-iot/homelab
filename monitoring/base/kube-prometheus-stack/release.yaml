@@ -18,15 +18,15 @@ spec:
     prometheus:
       fullnameOverride: prometheus
       prometheusSpec:
-      storageSpec:
-        volumeClaimTemplate:
-          spec:
-            storageClassName: local-path
-            accessModes: ["ReadWriteOnce"]
-            resources:
-              requests:
-                storage: 50Gi
-      retention: 15d
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: local-path
+              accessModes: ["ReadWriteOnce"]
+              resources:
+                requests:
+                  storage: 50Gi
+        retention: 15d
     grafana:
       fullnameOverride: grafana
       service:
