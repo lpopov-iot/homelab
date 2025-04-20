@@ -27,11 +27,9 @@ spec:
                 requests:
                   storage: 50Gi
         retention: 15d
+
     grafana:
       fullnameOverride: grafana
-      service:
-        type: NodePort
-        nodePort: 30001
       adminPassword: admin
       sidecar:
         datasources:
