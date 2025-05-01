@@ -1,0 +1,1 @@
+Replace dietpi.txt with one in boot/ on OS before firstboot.
