@@ -1,18 +1,7 @@
----
 services:
-  portainer:
-    image: portainer/portainer-ce:latest
-    ports:
-      - 9443:9443
-    volumes:
-      - portainer-data:/data
-      - /var/run/docker.sock:/var/run/docker.sock
-    restart: unless-stopped
-
 ############################
 # RADARR
 ############################
-
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
@@ -25,12 +14,13 @@ services:
       - /media/arr/radarr/config:/config
       - /media/arr/radarr/movies:/movies #optional
       - /media/arr/qbittorrent/downloads:/downloads #optional
+    depends_on:
+      - gluetun
     restart: unless-stopped
     
 ############################
 # SONARR
 ############################
-
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
@@ -43,12 +33,13 @@ services:
       - /media/arr/sonarr/config:/config
       - /media/arr/sonarr/tvseries:/tv #optional
       - /media/arr/qbittorrent/downloads:/downloads #optional
+    depends_on:
+      - gluetun
     restart: unless-stopped
     
 ############################
 # PROWLARR
 ############################
-
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
@@ -59,12 +50,12 @@ services:
       - TZ=Etc/UTC
     volumes:
       - /media/arr/prowlarr/config:/config
+    depends_on:
+      - gluetun
     restart: unless-stopped
-
 ############################
 # BAZARR
 ############################
-
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
     container_name: bazarr
@@ -77,12 +68,13 @@ services:
       - /media/arr/bazarr/config:/config
       - /media/arr/radarr/movies:/movies #optional
       - /media/arr/sonarr/tvseries:/tv #optional
+    depends_on:
+      - gluetun
     restart: unless-stopped
     
 ############################
 # QBITTORRENT		
 ############################
-
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
@@ -96,34 +88,13 @@ services:
     volumes:
       - /media/arr/qbittorrent/config:/config
       - /media/arr/qbittorrent/downloads:/downloads #optional
-    restart: unless-stopped
-    
-############################
-# JELLYFIN	
-############################
-
-  jellyfin:
-    image: lscr.io/linuxserver/jellyfin:latest
-    container_name: jellyfin
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Etc/UTC
-    volumes:
-      - /media/arr/jellyfin/config:/config
-      - /media/arr/sonarr/tvseries:/data/tvshows
-      - /media/arr/radarr/movies:/data/movies
-    ports:
-      - 8096:8096
-      - 8920:8920 #optional
-      - 7359:7359/udp #optional
-      - 1900:1900/udp #optional
+    depends_on:
+      - gluetun
     restart: unless-stopped
     
 ############################
 # GLUETUN
 ############################
-
   gluetun:
     image: qmcgaw/gluetun
     container_name: gluetun
@@ -142,11 +113,8 @@ services:
     environment:
       - VPN_SERVICE_PROVIDER=nordvpn
       - VPN_TYPE=openvpn
-      - OPENVPN_USER=SSEooaEVEvLz8ecvyCb43Ckf
+      - OPENVPN_USER=
       - OPENVPN_PASSWORD=
       - SERVER_COUNTRIES=United Kingdom
       
 ############################
-
-volumes:
-  portainer-data:
