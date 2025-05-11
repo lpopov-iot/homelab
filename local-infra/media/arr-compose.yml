@@ -11,12 +11,11 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - /media/arr/radarr/config:/config
-      - /media/arr/radarr/movies:/movies #optional
-      - /media/arr/qbittorrent/downloads:/downloads #optional
+      - /docker/radarr/config:/config
+      - /data:/data
     depends_on:
       - gluetun
-    restart: unless-stopped
+    restart: always
     
 ############################
 # SONARR
@@ -30,12 +29,11 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - /media/arr/sonarr/config:/config
-      - /media/arr/sonarr/tvseries:/tv #optional
-      - /media/arr/qbittorrent/downloads:/downloads #optional
+      - /docker/sonarr/config:/config
+      - /data:/data
     depends_on:
       - gluetun
-    restart: unless-stopped
+    restart: always
     
 ############################
 # PROWLARR
@@ -49,10 +47,10 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - /media/arr/prowlarr/config:/config
+      - /docker/prowlarr/config:/config
     depends_on:
       - gluetun
-    restart: unless-stopped
+    restart: always
 ############################
 # BAZARR
 ############################
@@ -65,12 +63,11 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - /media/arr/bazarr/config:/config
-      - /media/arr/radarr/movies:/movies #optional
-      - /media/arr/sonarr/tvseries:/tv #optional
+      - /docker/bazarr/config:/config
+      - /data:/data
     depends_on:
       - gluetun
-    restart: unless-stopped
+    restart: always
     
 ############################
 # QBITTORRENT		
@@ -86,11 +83,11 @@ services:
       - WEBUI_PORT=8080
       - TORRENTING_PORT=6881
     volumes:
-      - /media/arr/qbittorrent/config:/config
-      - /media/arr/qbittorrent/downloads:/downloads #optional
+      - /docker/qbittorrent/config:/config
+      - /data/torrents:/data/torrents
     depends_on:
       - gluetun
-    restart: unless-stopped
+    restart: always
     
 ############################
 # GLUETUN
@@ -116,5 +113,6 @@ services:
       - OPENVPN_USER=
       - OPENVPN_PASSWORD=
       - SERVER_COUNTRIES=United Kingdom
+    restart: always
       
 ############################
