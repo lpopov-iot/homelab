@@ -13,11 +13,11 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: ingress-nginx
-  values:
-    controller:
-      service:
-        type: NodePort
-        nodePorts:
-          http: 30080
-          https: 30443
+  # values:
+  #   controller:
+  #     service:
+  #       type: NodePort
+  #       nodePorts:
+  #         http: 30080
+  #         https: 30443
   interval: 10m0s
