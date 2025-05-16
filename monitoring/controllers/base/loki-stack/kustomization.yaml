@@ -4,5 +4,5 @@ namespace: monitoring
 resources:
   - repository.yaml
   - release.yaml
-  - grafana-datasource.yaml
-  - prometheus-servicemonitor.yaml
+  #- grafana-datasource.yaml
+  #- prometheus-servicemonitor.yaml
