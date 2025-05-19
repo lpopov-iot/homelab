@@ -24,7 +24,7 @@ spec:
   dependsOn:
     - name: monitoring-controllers
   interval: 10m0s
-  path: ./monitoring/config/homelab
+  path: ./monitoring/configs/homelab
   prune: true
   retryInterval: 2m0s
   sourceRef:
