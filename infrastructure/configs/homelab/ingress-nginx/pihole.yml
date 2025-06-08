@@ -27,18 +27,32 @@ metadata:
   name: pihole-ingress
   namespace: ingress-nginx
   annotations:
+    # Tell Nginx Ingress to use HTTPS when connecting to the backend service (Pi-hole at 192.168.0.2:8489)
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+
+    # --- Previous annotations (if still desired) ---
+    # Redirects / to /admin/ internally at the Ingress Controller level
     nginx.ingress.kubernetes.io/app-root: /admin/
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+
+    # (Optional) Forces browser from HTTP to HTTPS for the frontend
+    # This requires TLS configuration (secretName and hosts) in the Ingress spec
+    # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+
 spec:
   ingressClassName: nginx
+  # If you want frontend HTTPS (browser to Ingress), you need this TLS block:
+  # tls:
+  #   - hosts:
+  #       - pihole.home.oakhl.com
+  #     secretName: your-pihole-tls-secret # Replace with your TLS secret (e.g., from cert-manager)
   rules:
   - host: pihole.home.oakhl.com
     http:
       paths:
       - path: /
-        pathType: Prefix
+        pathType: Prefix # Or ImplementationSpecific
         backend:
           service:
             name: external-service-pihole-webadmin
             port:
-              number: 8489
+              number: 8489 # This is the port Nginx will connect to, now using HTTPS protocol
