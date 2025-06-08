@@ -29,7 +29,7 @@ metadata:
   annotations:
     # This annotation tells Nginx to redirect all requests for '/'
     # to '/admin'. The 'permanent' means 301 (SEO-friendly).
-    nginx.ingress.kubernetes.io/permanent-redirect: /admin
+    nginx.ingress.kubernetes.io/permanent-redirect: /admin/
     # Alternative for rewrite, but for / to /admin, temporary-redirect is cleaner for simple redirection.
     # If you use rewrite-target, you often need to handle path stripping carefully.
     # For a simple redirect, `temporal-redirect` (302) or `permanent-redirect` (301) is often better.
