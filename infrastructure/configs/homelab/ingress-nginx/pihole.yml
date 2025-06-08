@@ -27,13 +27,9 @@ metadata:
   name: pihole-ingress
   namespace: ingress-nginx
   annotations:
-    # This annotation tells Nginx to redirect all requests for '/'
-    # to '/admin'. The 'permanent' means 301 (SEO-friendly).
-    nginx.ingress.kubernetes.io/permanent-redirect: /admin/
-    # Alternative for rewrite, but for / to /admin, temporary-redirect is cleaner for simple redirection.
-    # If you use rewrite-target, you often need to handle path stripping carefully.
-    # For a simple redirect, `temporal-redirect` (302) or `permanent-redirect` (301) is often better.
-    # nginx.ingress.kubernetes.io/rewrite-target: /admin
+    nginx.ingress.kubernetes.io/app-root: /admin/
+    # (Optional) If you have TLS and want HTTP to HTTPS redirect
+    # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   ingressClassName: nginx
   rules:
@@ -41,14 +37,6 @@ spec:
     http:
       paths:
       - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: external-service-pihole-webadmin
-            port:
-              number: 8489
-
-      - path: /admin
         pathType: Prefix
         backend:
           service:
