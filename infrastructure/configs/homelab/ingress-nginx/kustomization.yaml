@@ -4,4 +4,8 @@ namespace: ingress-nginx
 resources:
   - pihole.yml
   - jellyfin.yaml
+  - portainer.yaml
   - qbittorrent.yaml
+  - prowlarr.yaml
+  - radarr.yaml
+  - sonarr.yaml

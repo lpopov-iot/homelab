@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-service-sonarr
+  namespace: ingress-nginx
+spec:
+  clusterIP: None
+  ports:
+  - port: 8989
+    targetPort: 8989
+    protocol: TCP
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: external-service-sonarr
+  namespace: ingress-nginx
+subsets:
+  - addresses:
+      - ip: 192.168.0.35
+    ports:
+      - port: 8989
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sonarr-ingress
+  namespace: ingress-nginx
+  annotations:
+    # (Optional) Forces browser from HTTP to HTTPS for the frontend
+    # This requires TLS configuration (secretName and hosts) in the Ingress spec
+    # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+
+spec:
+  ingressClassName: nginx
+  # If you want frontend HTTPS (browser to Ingress), you need this TLS block:
+  # tls:
+  #   - hosts:
+  #       - pihole.home.oakhl.com
+  #     secretName: your-pihole-tls-secret # Replace with your TLS secret (e.g., from cert-manager)
+  rules:
+  - host: sonarr.home.oakhl.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix # Or ImplementationSpecific
+        backend:
+          service:
+            name: external-service-sonarr
+            port:
+              number: 8989 # This is the port Nginx will connect to, now using HTTPS protocol
