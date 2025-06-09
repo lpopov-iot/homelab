@@ -4,3 +4,4 @@ namespace: ingress-nginx
 resources:
   - pihole.yml
   - jellyfin.yaml
+  - qbittorrent.yaml
