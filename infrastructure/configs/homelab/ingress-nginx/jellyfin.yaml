@@ -27,7 +27,6 @@ metadata:
   name: jellyfin-ingress
   namespace: ingress-nginx
   annotations:
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     # (Optional) Forces browser from HTTP to HTTPS for the frontend
     # This requires TLS configuration (secretName and hosts) in the Ingress spec
     # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
