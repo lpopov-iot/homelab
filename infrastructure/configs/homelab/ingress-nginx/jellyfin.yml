@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-service-jellyfin
+  namespace: ingress-nginx
+spec:
+  clusterIP: None
+  ports:
+  - port: 8096
+    targetPort: 8096
+    protocol: TCP
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: external-service-jellyfin
+  namespace: ingress-nginx
+subsets:
+  - addresses:
+      - ip: 192.168.0.47
+    ports:
+      - port: 8096
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jellyfin-ingress
+  namespace: ingress-nginx
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    # (Optional) Forces browser from HTTP to HTTPS for the frontend
+    # This requires TLS configuration (secretName and hosts) in the Ingress spec
+    # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+
+spec:
+  ingressClassName: nginx
+  # If you want frontend HTTPS (browser to Ingress), you need this TLS block:
+  # tls:
+  #   - hosts:
+  #       - pihole.home.oakhl.com
+  #     secretName: your-pihole-tls-secret # Replace with your TLS secret (e.g., from cert-manager)
+  rules:
+  - host: jellyfin.home.oakhl.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix # Or ImplementationSpecific
+        backend:
+          service:
+            name: external-service-jellyfin
+            port:
+              number: 8096 # This is the port Nginx will connect to, now using HTTPS protocol
