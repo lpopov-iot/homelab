@@ -1,0 +1,23 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod-cloudflare-dns01
+spec:
+  acme:
+    # The ACME server URL for Let's Encrypt production environment
+    server: https://acme-v02.api.letsencrypt.org/directory
+    # Email address used for ACME registration and to receive expiry notifications
+    email: lyud.popov@gmail.com # <<<< IMPORTANT: Replace with your actual email
+    # Name of a secret used to store the ACME account private key
+    privateKeySecretRef:
+      name: cloudflare-api-token-secret
+    # Enable the DNS01 challenge provider
+    solvers:
+    - dns01:
+        cloudflare:
+          # Your Cloudflare email address (optional for API Tokens, required for API Keys)
+          # email: your-cloudflare-email@example.com # <<<< Only if using API Key, not usually needed for API Tokens
+          # API token secret reference
+          apiTokenSecretRef:
+            name: cloudflare-api-token-secret
+            key: api-token # This refers to the key 'api-token' in the secret above
