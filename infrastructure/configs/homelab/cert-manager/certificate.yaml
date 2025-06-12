@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: home-oakhl-com-wildcard-tls
+  namespace: cert-manager # Or a common namespace for certificates
+spec:
+  secretName: home-oakhl-com-wildcard-secret
+  dnsNames:
+    - '*.home.oakhl.com'  # Wildcard for all direct subdomains of home.oakhl.com
+    - 'home.oakhl.com'    # Recommended: Include the base domain if you use it (e.g., for a landing page)
+  issuerRef:
+    name: letsencrypt-prod-cloudflare-dns01
+    kind: ClusterIssuer
