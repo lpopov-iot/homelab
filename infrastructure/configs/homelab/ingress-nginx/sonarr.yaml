@@ -27,25 +27,30 @@ metadata:
   name: sonarr-ingress
   namespace: ingress-nginx
   annotations:
-    # (Optional) Forces browser from HTTP to HTTPS for the frontend
-    # This requires TLS configuration (secretName and hosts) in the Ingress spec
-    # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    # --- Cert-manager annotations to request a certificate ---
+    # This annotation tells cert-manager to use the specified ClusterIssuer
+    # to obtain a certificate for the host(s) defined in the TLS section.
+    cert-manager.io/cluster-issuer: "letsencrypt-prod-cloudflare-dns01"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 
 spec:
   ingressClassName: nginx
-  # If you want frontend HTTPS (browser to Ingress), you need this TLS block:
-  # tls:
-  #   - hosts:
-  #       - pihole.home.oakhl.com
-  #     secretName: your-pihole-tls-secret # Replace with your TLS secret (e.g., from cert-manager)
+  # --- TLS configuration for frontend HTTPS (browser to Ingress) ---
+  # This block defines the host(s) for which TLS will be enabled and
+  # the Kubernetes Secret where the certificate will be stored by cert-manager.
+  tls:
+    - hosts:
+        - sonarr.home.oakhl.com # The domain(s) this certificate will be valid for
+      secretName: sonarr-home-oakhl-com-tls # Name of the Secret cert-manager will create/manage
+
   rules:
   - host: sonarr.home.oakhl.com
     http:
       paths:
       - path: /
-        pathType: Prefix # Or ImplementationSpecific
+        pathType: Prefix
         backend:
           service:
             name: external-service-sonarr
             port:
-              number: 8989 # This is the port Nginx will connect to, now using HTTPS protocol
+              number: 8989
