@@ -4,25 +4,22 @@ metadata:
   name: grafana
   namespace: monitoring
   annotations:
-    # (Optional) Forces browser from HTTP to HTTPS for the frontend
-    # This requires TLS configuration (secretName and hosts) in the Ingress spec
-    # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-
+    cert-manager.io/cluster-issuer: "letsencrypt-prod-cloudflare-dns01"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   ingressClassName: nginx
-  # If you want frontend HTTPS (browser to Ingress), you need this TLS block:
-  # tls:
-  #   - hosts:
-  #       - pihole.home.oakhl.com
-  #     secretName: your-pihole-tls-secret # Replace with your TLS secret (e.g., from cert-manager)
+  tls:
+    - hosts:
+        - grafana.home.oakhl.com
+      secretName: grafana-home-oakhl-com-tls
   rules:
   - host: grafana.home.oakhl.com
     http:
       paths:
       - path: /
-        pathType: Prefix # Or ImplementationSpecific
+        pathType: Prefix
         backend:
           service:
             name: grafana
             port:
-              name: http-web # This is the port Nginx will connect to, now using HTTPS protocol
+              name: http-web
