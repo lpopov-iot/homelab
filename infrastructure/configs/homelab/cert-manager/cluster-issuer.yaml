@@ -10,7 +10,7 @@ spec:
     email: lyud.popov@gmail.com # <<<< IMPORTANT: Replace with your actual email
     # Name of a secret used to store the ACME account private key
     privateKeySecretRef:
-      name: cloudflare-api-token-secret
+      name: letsencrypt-prod-cloudflare-dns01
     # Enable the DNS01 challenge provider
     solvers:
     - dns01:
