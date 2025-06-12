@@ -27,25 +27,22 @@ metadata:
   name: qbittorrent-ingress
   namespace: ingress-nginx
   annotations:
-    # (Optional) Forces browser from HTTP to HTTPS for the frontend
-    # This requires TLS configuration (secretName and hosts) in the Ingress spec
-    # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-
+    cert-manager.io/cluster-issuer: "letsencrypt-prod-cloudflare-dns01"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   ingressClassName: nginx
-  # If you want frontend HTTPS (browser to Ingress), you need this TLS block:
-  # tls:
-  #   - hosts:
-  #       - pihole.home.oakhl.com
-  #     secretName: your-pihole-tls-secret # Replace with your TLS secret (e.g., from cert-manager)
+  tls:
+    - hosts:
+        - qbittorrent.home.oakhl.com
+      secretName: qbittorrent-home-oakhl-com-tls
   rules:
   - host: qbittorrent.home.oakhl.com
     http:
       paths:
       - path: /
-        pathType: Prefix # Or ImplementationSpecific
+        pathType: Prefix
         backend:
           service:
             name: external-service-qbittorrent
             port:
-              number: 8080 # This is the port Nginx will connect to, now using HTTPS protocol
+              number: 8080
